@@ -11,26 +11,26 @@ from lpocv.lpocv import LeavePairOut
 # Option parser
 ###############
 parser = OptionParser()
-parser.add_option("-b", "--baseline-file",  dest="baseline_data", default="../data/rnaseq_log2rpkm.csv",
+parser.add_option("-b", "--baseline-file",  dest="baseline_data", type="str", default="../data/rnaseq_log2rpkm.csv",
                   help="baseline data - RNAseq, mass-spectometry, phospho mass-spectometry, kinase activity")
-parser.add_option("-r", "--response-file", dest="response_data", default="../data/grmetrics.csv",
+parser.add_option("-r", "--response-file", dest="response_data", type="str", default="../data/grmetrics.csv",
                   help="dose-response for drug-cell combinations, columns headers - 'GR_AOC', 'sigma_GR_AOC', 'GRmax', 'sigma_GR_AOC', 'GEC', 'sigma_GEC50'")
-parser.add_option("-g", "--gene-list", dest="gene_list", default="../data/gene_list.txt",
+parser.add_option("-g", "--gene-list", dest="gene_list", type="str", default="../data/gene_list.txt",
                   help="subset of genes on which the predictions are made")
-parser.add_option("-c", "--cell-list", dest="cell_list", default="../data/cell_list.txt",
+parser.add_option("-c", "--cell-list", dest="cell_list", type="str", default="../data/cell_list.txt",
                   help="subset of genes on which the predictions are made")
-parser.add_option("-d", "--drug", dest="drug", default="Abemaciclib/LY2835219", help="drug name")
-parser.add_option("-m", "--metric", dest="metric", default="GR_AOC",
+parser.add_option("-d", "--drug", dest="drug", type="str", default="Abemaciclib/LY2835219", help="drug name")
+parser.add_option("-m", "--metric", dest="metric", type="str", default="GR_AOC",
                   help="metric to be predicted, possible values: GR_AOC, GRmax, GEC50")
-parser.add_option("-p", "--parameters", dest="params", default="../data/randomforest_params.txt",
+parser.add_option("-p", "--parameters", dest="params", type="str", default="../data/randomforest_params.txt",
                   help="file containing the parameters for RandomForestRegressor")
-parser.add_option("-t", "--prediction_type", dest="prediction_type", default="predict_genes",
+parser.add_option("-t", "--prediction_type", dest="prediction_type", type="str", default="predict_genes",
                   help="switch between evaluating feature importance and estimating model accuracy - predict_genes, estimate_accuracy")
-parser.add_option("-n", "--num_pairs", dest="complexity", default=5,
+parser.add_option("-n", "--num_pairs", dest="complexity", type="int", default=5,
                   help="Computational complexity, if None then AUC is evaluated over all possible cell pairs, by default each cell is paired with 5 other cells.")
-parser.add_option("-f", "--num_features", dest="num_features", default=50,
+parser.add_option("-f", "--num_features", dest="num_features", type="int", default=50,
                   help="Number of features for feature pruning")
-parser.add_option("-o", "--output", dest="output", default="../results/",
+parser.add_option("-o", "--output", dest="output", type="str", default="../results/",
                   help="output folder")
 options, args = parser.parse_args()
 
@@ -111,7 +111,7 @@ def feature_pruning(df, num_features):
             number of features to be returned
     '''
     dfimp = feature_importance(df)
-    while dfimp.shape[0] > (int(options.num_features+1)):
+    while dfimp.shape[0] > (options.num_features+1):
         drop_features = dfimp.tail(int(0.25*dfimp.shape[0])).index.tolist()
         df = df.drop(columns=drop_features)
         dfimp = feature_importance(df)
@@ -157,6 +157,7 @@ def compute_auc(df):
         dfout = dfout.append(df1, ignore_index=True)
         if (ypred[0]-y[test[0]])*(ypred[1]-y[test[1]]) > 0:
             auc+=1
+    auc = float(auc/itr)
     return auc, dfout
 
 ####################################################################################################################################
