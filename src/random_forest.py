@@ -155,7 +155,7 @@ def compute_auc(df):
 
         dfout = dfout.append(df0, ignore_index=True)
         dfout = dfout.append(df1, ignore_index=True)
-        if (ypred[0]-y[test[0]])*(ypred[1]-y[test[1]]) > 0:
+        if (ypred[0]-ypred[1])*(y[test[0]]-y[test[1]]) > 0:
             auc+=1
     auc = float(auc/itr)
     return auc, dfout
