@@ -19,7 +19,7 @@ process accuracy {
     carg = params.containsKey('cellLines') ? "-c $cl" : '-c /app/data/cell_list.txt'
     """
     python /app/src/random_forest.py -t estimate_accuracy \
-      $carg -d $drug -g $genes -o ./ \
+      $carg -d '$drug' -g $genes -o ./ \
       -b /app/data/rnaseq_log2rpkm.csv \
       -r /app/data/grmetrics.csv \
       -p /app/data/randomforest_params.txt
