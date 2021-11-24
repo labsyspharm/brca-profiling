@@ -157,25 +157,26 @@ def compute_auc(df):
         dfout = dfout.append(df1, ignore_index=True)
         if (ypred[0]-ypred[1])*(y[test[0]]-y[test[1]]) > 0:
             auc+=1
+    print("Evaluated %s pairs using leave-pair-out cross-validation."%itr)
     auc = float(auc/itr)
     return auc, dfout
 
 ####################################################################################################################################
 
 if options.prediction_type=="predict_genes":
-    print ("Predicting drivers for %s (%s cell lines)"%(options.drug, dfc.shape[0]))
+    print ("Predicting drivers for %s (%s cell lines)."%(options.drug, dfc.shape[0]))
     dfimp = feature_importance(dfc)
     dfimp.to_csv("%s%s_imp.csv"%(options.output, options.drug.split("/")[0]), index=False)
 
 elif options.prediction_type=="feature_pruning":
-    print("Predicting drivers (data driven) for %s (%s cell lines)"%(options.drug, dff.shape[0]))
+    print("Predicting drivers (data driven) for %s (%s cell lines)."%(options.drug, dff.shape[0]))
     dfimp = feature_pruning(dff, options.num_features)
     dfimp.to_csv("%s%s_ddfs.csv"%(options.output, options.drug.split("/")[0]), index=False)
 
 elif options.prediction_type=="estimate_accuracy":
-    print ("Estimating accuracy of Random Forest model for %s (%s cell lines)"%(options.drug, dfc.shape[0]))
+    print ("Estimating accuracy of Random Forest model for %s (%s cell lines).\n"%(options.drug, dfc.shape[0]))
     auc, dfout = compute_auc(dfc)
     dfout.to_csv("%s%s.csv"%(options.output, options.drug.split("/")[0]), index=False)
-    with open("%s%s.txt"%(options.output, options.drug.split("/")[0]),"w") as outFile:
+    with open("%s%s_auc.txt"%(options.output, options.drug.split("/")[0]),"w") as outFile:
         outFile.write(str(auc))
     outFile.close()
