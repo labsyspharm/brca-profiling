@@ -6,7 +6,7 @@ nextflow.enable.dsl=2
 params.out = 'results'
 
 process accuracy {
-    container 'labsyspharm/brca-profiling:1.0.0'
+    container "${params.contPfx}labsyspharm/brca-profiling:${params.contVers}'
     
     input:
     tuple path(genes), val(drug)
