@@ -6,7 +6,7 @@ nextflow.enable.dsl=2
 params.out = 'results'
 
 process accuracy {
-    container 'labsyspharm/brca-profiling:1.0.0'
+    container "${params.contPfx}labsyspharm/brca-profiling:${params.contVers}"
     
     input:
     tuple path(genes), val(drug)
@@ -19,10 +19,7 @@ process accuracy {
     carg = params.containsKey('cellLines') ? "-c $cl" : '-c /app/data/cell_list.txt'
     """
     python /app/src/random_forest.py -t estimate_accuracy \
-      $carg -d '$drug' -g $genes -o ./ \
-      -b /app/data/rnaseq_log2rpkm.csv \
-      -r /app/data/grmetrics.csv \
-      -p /app/data/randomforest_params.txt
+      $carg -d '$drug' -g $genes -o ./
     """
 }
 
@@ -45,7 +42,7 @@ workflow {
 
     inputs = sigs.combine(drugs)
     accuracy(inputs, cell_lines)
-        .map{sig, f -> tuple(sig, "${f.getBaseName()},${f.text}")}
+        .map{sig, f -> tuple(sig, "${f.getBaseName().split('_auc').head()},${f.text}")}
         .groupTuple()
         .map{sig, aucs -> tuple(sig, aucs.join('\n'))} |
         aggregate
