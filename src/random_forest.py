@@ -7,22 +7,32 @@ import warnings
 from sklearn.ensemble import RandomForestRegressor
 from scipy.stats import spearmanr
 from lpocv.lpocv import LeavePairOut
+import os
+import subprocess
+
+brca_dir = os.path.dirname(os.path.dirname(__file__))
+data_dir = os.path.join(brca_dir, "data")
+results_dir = os.path.join(os.getcwd(), "brca_results")
+if os.path.isdir(results_dir):
+    pass
+else:
+    subprocess.run(["mkdir", results_dir])
 
 # Option parser
 ###############
 parser = OptionParser()
-parser.add_option("-b", "--baseline-file",  dest="baseline_data", type="str", default="../data/rnaseq_log2rpkm.csv",
+parser.add_option("-b", "--baseline-file",  dest="baseline_data", type="str", default="%s/rnaseq_log2rpkm.csv"%data_dir,
                   help="baseline data - RNAseq, mass-spectometry, phospho mass-spectometry, kinase activity")
-parser.add_option("-r", "--response-file", dest="response_data", type="str", default="../data/grmetrics.csv",
+parser.add_option("-r", "--response-file", dest="response_data", type="str", default="%s/grmetrics.csv"%data_dir,
                   help="dose-response for drug-cell combinations, columns headers - 'GR_AOC', 'sigma_GR_AOC', 'GRmax', 'sigma_GR_AOC', 'GEC', 'sigma_GEC50'")
-parser.add_option("-g", "--gene-list", dest="gene_list", type="str", default="../data/gene_list.txt",
+parser.add_option("-g", "--gene-list", dest="gene_list", type="str", default="%s/gene_list.txt"%data_dir,
                   help="subset of genes on which the predictions are made")
-parser.add_option("-c", "--cell-list", dest="cell_list", type="str", default="../data/cell_list.txt",
+parser.add_option("-c", "--cell-list", dest="cell_list", type="str", default="%s/cell_list.txt"%data_dir,
                   help="subset of genes on which the predictions are made")
 parser.add_option("-d", "--drug", dest="drug", type="str", default="Abemaciclib/LY2835219", help="drug name")
 parser.add_option("-m", "--metric", dest="metric", type="str", default="GR_AOC",
                   help="metric to be predicted, possible values: GR_AOC, GRmax, GEC50")
-parser.add_option("-p", "--parameters", dest="params", type="str", default="../data/randomforest_params.txt",
+parser.add_option("-p", "--parameters", dest="params", type="str", default="%s/randomforest_params.txt"%data_dir,
                   help="file containing the parameters for RandomForestRegressor")
 parser.add_option("-t", "--prediction_type", dest="prediction_type", type="str", default="predict_genes",
                   help="switch between evaluating feature importance and estimating model accuracy - predict_genes, estimate_accuracy")
@@ -30,7 +40,7 @@ parser.add_option("-n", "--num_pairs", dest="complexity", type="int", default=5,
                   help="Computational complexity, if None then AUC is evaluated over all possible cell pairs, by default each cell is paired with 5 other cells.")
 parser.add_option("-f", "--num_features", dest="num_features", type="int", default=50,
                   help="Number of features for feature pruning")
-parser.add_option("-o", "--output", dest="output", type="str", default="../results/",
+parser.add_option("-o", "--output", dest="output", type="str", default=results_dir,
                   help="output folder")
 options, args = parser.parse_args()
 
@@ -123,7 +133,7 @@ def compute_auc(df):
     Random forest regressor.
     Parameters:
     ##########
-    df: pandas dataframe, shape=(rows,columns) 
+    df: pandas dataframe, shape=(rows,column"""s)
         rows: features (genes)
         columns: samples + growth rate metrics 
         must contain a column "METRIC" and its coressponding "sigma_METRIC"
@@ -166,17 +176,18 @@ def compute_auc(df):
 if options.prediction_type=="predict_genes":
     print ("Predicting drivers for %s (%s cell lines)."%(options.drug, dfc.shape[0]))
     dfimp = feature_importance(dfc)
-    dfimp.to_csv("%s%s_imp.csv"%(options.output, options.drug.split("/")[0]), index=False)
+    dfimp.to_csv("%s/%s_imp.csv"%(options.output, options.drug.split("/")[0]), index=False)
 
 elif options.prediction_type=="feature_pruning":
     print("Predicting drivers (data driven) for %s (%s cell lines)."%(options.drug, dff.shape[0]))
     dfimp = feature_pruning(dff, options.num_features)
-    dfimp.to_csv("%s%s_ddfs.csv"%(options.output, options.drug.split("/")[0]), index=False)
+    dfimp.to_csv("%s/%s_ddfs.csv"%(options.output, options.drug.split("/")[0]), index=False)
 
 elif options.prediction_type=="estimate_accuracy":
-    print ("Estimating accuracy of Random Forest model for %s (%s cell lines).\n"%(options.drug, dfc.shape[0]))
+    print ("Estimating accuracy of Random Forest model for %s (%s cell lines)"%(options.drug, dfc.shape[0]))
     auc, dfout = compute_auc(dfc)
-    dfout.to_csv("%s%s.csv"%(options.output, options.drug.split("/")[0]), index=False)
-    with open("%s%s_auc.txt"%(options.output, options.drug.split("/")[0]),"w") as outFile:
+    dfout.to_csv("%s/%s.csv"%(options.output, options.drug.split("/")[0]), index=False)
+    with open("%s/%s_auc.txt"%(options.output, options.drug.split("/")[0]),"w") as outFile:
         outFile.write(str(auc))
     outFile.close()
+
