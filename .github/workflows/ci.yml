@@ -1,0 +1,32 @@
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  test1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nextflow
+        run: curl -fsSL get.nextflow.io | bash
+      - name: Compose genesets
+        run: |
+          mkdir genesets
+          echo APAF1 BAD BAK1 BAX BCL2 BCL2A1 BCL2L1 BCL2L11 BID BIK CASP3 CASP7 CASP8 CASP9 HRK PMAIP1 PUMA BMF BCL2L2 CYCS MCL1 | tr ' ' '\n' > genesets/apoptosis.txt
+          echo AKT1 AKT2 AKT3 CRKL IRS2 MTOR PIK3CA PIK3CG PIK3R1 PIK3R2 PTEN RICTOR RNF43 RPTOR TSC1 TSC2 | tr ' ' '\n' > genesets/pi3k.txt
+          echo 184A1 AU565 BT20 BT474 BT549 CAL120 | tr ' ' '\n' > cl.txt
+      - name: Evaluate genesets
+        run: ./nextflow main.nf --in genesets --cell-lines cl.txt
+      - name: Show results
+        run: |
+          cat results/apoptosis.csv
+          cat results/pi3k.csv
