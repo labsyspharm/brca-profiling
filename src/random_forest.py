@@ -168,7 +168,7 @@ def compute_auc(df):
         if (ypred[0]-ypred[1])*(y[test[0]]-y[test[1]]) > 0:
             auc+=1
     print("Evaluated %s pairs using leave-pair-out cross-validation."%itr)
-    auc = float(auc/itr)
+    auc = float(auc/itr) if itr > 0 else np.nan
     return auc, dfout
 
 ####################################################################################################################################
