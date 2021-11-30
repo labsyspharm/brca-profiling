@@ -22,22 +22,21 @@ Pull the latest version of the code and run it with the directory composed in St
 
 ```
 nextflow pull labsyspharm/brca-profiling
-nextflow run labsyspharm/brca-profiling -r main --in genesets
+nextflow run labsyspharm/brca-profiling --in genesets
 ```
-(where `main` specifies the branch in this GitHub repository.)
 
 The script will generate a `results/` directory and populate it with AUC values from evaluating each signature against each drug.
 The output directory can be controlled with `--out`, e.g.,
 
 ```
-nextflow run labsyspharm/brca-profiling -r main --in my_signatures --out /path/to/results
+nextflow run labsyspharm/brca-profiling --in genesets --out /path/to/results
 ```
 
 Signatures can be evaluated on a subset of cell lines. Make a `cl.txt` file that lists which cell lines should be considered (one per line), then feed it to the script with `--cell-lines`:
 
 ```
 echo 184A1 AU565 BT20 BT474 BT549 CAL120 | tr ' ' '\n' > cl.txt
-nextflow run labsyspharm/brca-profiling -r main --in my_signatures --cell-lines cl.txt
+nextflow run labsyspharm/brca-profiling --in genesets --cell-lines cl.txt
 ```
 
 ## Running on O2
@@ -46,5 +45,5 @@ Docker is not required to run the script on O2, where Singularity will be used i
 
 ```
 module load java
-nextflow run labsyspharm/brca-profiling -r main --in genesets -profile O2
+nextflow run labsyspharm/brca-profiling --in genesets -profile O2
 ```
