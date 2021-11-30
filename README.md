@@ -29,14 +29,14 @@ The script will generate a `results/` directory and populate it with AUC values 
 The output directory can be controlled with `--out`, e.g.,
 
 ```
-nextflow run labsyspharm/brca-profiling --in my_signatures --out /path/to/results
+nextflow run labsyspharm/brca-profiling --in genesets --out /path/to/results
 ```
 
 Signatures can be evaluated on a subset of cell lines. Make a `cl.txt` file that lists which cell lines should be considered (one per line), then feed it to the script with `--cell-lines`:
 
 ```
 echo 184A1 AU565 BT20 BT474 BT549 CAL120 | tr ' ' '\n' > cl.txt
-nextflow run labsyspharm/brca-profiling --in my_signatures --cell-lines cl.txt
+nextflow run labsyspharm/brca-profiling --in genesets --cell-lines cl.txt
 ```
 
 ## Running on O2
