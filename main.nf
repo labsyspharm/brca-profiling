@@ -24,7 +24,7 @@ process accuracy {
 }
 
 process aggregate {
-    publishDir "${params.out}", mode: 'copy', saveAs: {f -> "${sig}-auc.csv"}
+    publishDir "${params.out}", mode: 'move', saveAs: {f -> "${sig}-auc.csv"}
     
     input:  tuple val(sig), val(aucs)
     output: path('auc.csv')
