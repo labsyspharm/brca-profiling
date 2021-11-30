@@ -39,6 +39,20 @@ echo 184A1 AU565 BT20 BT474 BT549 CAL120 | tr ' ' '\n' > cl.txt
 nextflow run labsyspharm/brca-profiling --in genesets --cell-lines cl.txt
 ```
 
+## Evaluating against background sets
+
+The repository includes a script for generating signatures that comprise randomly-selected genes. By default, the script generates 30 sets of 50 genes each and outputs them to `background/` subdirectory. The user can overwrite these values using `--ns`, `--ng`, and `--out` respectively. For example,
+
+```
+nextflow run labsyspharm/brca-profiling/bkset.nf --ns 10 --ng 20 --out mysets
+```
+
+will generate 10 sets of 20 randomly-selected genes each and write these to `mysets/`. The directory can then be immediately provided to the main script for evaluation:
+
+```
+nextflow run labsyspharm/brca-profiling --in mysets
+```
+
 ## Running on O2
 
 Docker is not required to run the script on O2, where Singularity will be used instead. All the necessary parameters are encapsulated inside the configuration profile. Simply specify `-profile O2` when executing the script:
