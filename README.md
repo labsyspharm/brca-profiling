@@ -32,25 +32,37 @@ The output directory can be controlled with `--out`, e.g.,
 nextflow run labsyspharm/brca-profiling --in genesets --out /path/to/results
 ```
 
-Signatures can be evaluated on a subset of cell lines. Make a `cl.txt` file that lists which cell lines should be considered (one per line), then feed it to the script with `--cell-lines`:
+Signatures can be evaluated on a subset of cell lines. Make a `cl.txt` file that lists which cell lines should be considered (one per line), then feed it to the script with `--cell-list`:
 
 ```
 echo 184A1 AU565 BT20 BT474 BT549 CAL120 | tr ' ' '\n' > cl.txt
-nextflow run labsyspharm/brca-profiling --in genesets --cell-lines cl.txt
+nextflow run labsyspharm/brca-profiling --in genesets --cell-list cl.txt
+```
+
+By default, the script evaluates gene sets against RNAseq data. To evaluate against Mass Spec (MS) and phopsho-MS, use `--baseline-file` to point the script to another data file (note that the filenames are resolved w.r.t. `data/` in this repository):
+```
+nextflow run labsyspharm/brca-profiling --in genesets --baseline-file mass_spec.csv
+nextflow run labsyspharm/brca-profiling --in genesets --baseline-file phospho_phase1.csv
 ```
 
 ## Evaluating against background sets
 
-The repository includes a script for generating signatures that comprise randomly-selected genes. By default, the script generates 30 sets of 50 genes each and outputs them to `background/` subdirectory. The user can overwrite these values using `--ns`, `--ng`, and `--out` respectively. For example,
+The repository includes a script for generating signatures that comprise randomly-selected genes. By default, the script generates 30 sets of 50 genes each and outputs them to `background/` subdirectory with a prefix `bkset`. The user can overwrite these values using `--ns`, `--ng`, `--out`, and `--pfx` respectively. For example,
 
 ```
-nextflow run labsyspharm/brca-profiling/bkset.nf --ns 10 --ng 20 --out mysets
+nextflow run labsyspharm/brca-profiling/bkset.nf --ns 10 --ng 20 --out mysets --pfx bg
 ```
 
-will generate 10 sets of 20 randomly-selected genes each and write these to `mysets/`. The directory can then be immediately provided to the main script for evaluation:
+will generate 10 sets of 20 randomly-selected genes each and write these to `mysets/`, prefixing each filename with `bg`. The directory can then be immediately provided to the main script for evaluation:
 
 ```
 nextflow run labsyspharm/brca-profiling --in mysets
+```
+
+As with gene set evaluation, background generation samples from the rnaseq space of gene names by default. This behavior can be overwritten with `--baseline-file` as above:
+```
+nextflow run labsyspharm/brca-profiling/bkset.nf --baseline-file mass_spec.csv --pfx ms-bg
+nextflow run labsyspharm/brca-profiling/bkset.nf --baseline-file phospho_phase1.csv --pfx pms-bg
 ```
 
 ## Running on O2
