@@ -3,7 +3,8 @@ nextflow.enable.dsl=2
 // Expected params
 // .in - directory that contains gene signatures, with each signature
 //       in a separate .txt file, listing one gene name per line
-params.out = 'results'
+params.out          = 'results'
+params.baselineFile = 'rnaseq_log2rpkm.csv'
 
 process accuracy {
     container "${params.contPfx}labsyspharm/brca-profiling:${params.contVers}"
@@ -16,9 +17,10 @@ process accuracy {
     tuple val("${genes.getBaseName()}"), path('*.txt')
 
     script:
-    carg = params.containsKey('cellLines') ? "-c $cl" : '-c /app/data/cell_list.txt'
+    carg = params.containsKey('cellList') ? "-c $cl" : '-c /app/data/cell_list.txt'
     """
     python /app/src/random_forest.py -t estimate_accuracy \
+      -b /app/data/${params.baselineFile}
       $carg -d '$drug' -g $genes -o ./
     """
 }
@@ -36,7 +38,7 @@ process aggregate {
 }
 
 workflow {
-    cell_lines = params.containsKey('cellLines') ? file(params.cellLines) : ''
+    cell_lines = params.containsKey('cellList') ? file(params.cellList) : ''
     sigs  = Channel.fromPath("${params.in}/*.txt")
     drugs = Channel.of(params.drugs).flatten()
 
