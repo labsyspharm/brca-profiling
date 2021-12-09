@@ -20,7 +20,7 @@ process accuracy {
     carg = params.containsKey('cellList') ? "-c $cl" : '-c /app/data/cell_list.txt'
     """
     python /app/src/random_forest.py -t estimate_accuracy \
-      -b /app/data/${params.baselineFile}
+      -b /app/data/${params.baselineFile} \
       $carg -d '$drug' -g $genes -o ./
     """
 }
