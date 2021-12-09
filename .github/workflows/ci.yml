@@ -27,7 +27,7 @@ jobs:
           echo 184A1 AU565 BT20 BT474 BT549 CAL120 | tr ' ' '\n' > cl.txt
           echo 'params.drugs = ["A-1210477", "BJP-6-5-3", "senexin b"]' > custom.config
       - name: Evaluate genesets
-        run: ./nextflow main.nf --in genesets --cell-lines cl.txt -c custom.config
+        run: ./nextflow main.nf --in genesets --cell-list cl.txt -c custom.config
       - name: Show results
         run: |
           cat results/apoptosis-auc.csv
