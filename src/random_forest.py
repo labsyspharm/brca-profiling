@@ -55,15 +55,26 @@ for i in range(dfparam.shape[0]): exec("%s=%d"%(param_name[i], value[i]))
 ########
 input_cells = open(options.cell_list, "r").read().splitlines()
 input_cells = [ic.replace("-", "").upper() for ic in input_cells]
+print("Parsed %s user-provided cell line names"%len(input_cells))
+
 dfbase = pd.read_csv(options.baseline_data, index_col=0)
 base_cells = dfbase.columns.tolist()
+msg = "Loaded %s containing %s features and %s cell lines"
+print(msg%(options.baseline_data, dfbase.shape[0], dfbase.shape[1]))
+
 genes = open(options.gene_list, "r").read().splitlines()
+print("Parsed %s user-provided gene names"%len(genes))
+
 dfgr = pd.read_csv(options.response_data)
 dfgr = dfgr[dfgr.agent==options.drug]
 dfgr.index=dfgr.cell_line
 gr_cells = dfgr.index.tolist()
+print("Loaded GR values for %s cell lines"%len(gr_cells))
+
 cells = set(input_cells).intersection(set(base_cells).intersection(set(gr_cells)))
-dfbase = dfbase[cells]
+print("%s cell lines are in common to all sources"%len(cells))
+
+dfbase = dfbase[list(cells)]
 dfgr = dfgr[dfgr.index.isin(cells)]
 dfc = pd.concat([dfbase[dfbase.index.isin(genes)].T,
                  dfgr[[options.metric, "sigma_%s"%options.metric]]], axis=1).dropna()
@@ -184,7 +195,8 @@ elif options.prediction_type=="feature_pruning":
     dfimp.to_csv("%s/%s_ddfs.csv"%(options.output, options.drug.split("/")[0]), index=False)
 
 elif options.prediction_type=="estimate_accuracy":
-    print ("Estimating accuracy of Random Forest model for %s (%s cell lines)"%(options.drug, dfc.shape[0]))
+    msg = "Estimating accuracy of Random Forest model for %s (%s cell lines) from %s genes"
+    print (msg%(options.drug, dfc.shape[0], dfc.shape[1]))
     auc, dfout = compute_auc(dfc)
     dfout.to_csv("%s/%s.csv"%(options.output, options.drug.split("/")[0]), index=False)
     with open("%s/%s_auc.txt"%(options.output, options.drug.split("/")[0]),"w") as outFile:
