@@ -33,5 +33,4 @@ jobs:
         run: ./nextflow main.nf --in genesets --cell-list cl.txt -c custom.config
       - name: Show results
         run: |
-          cat results/apoptosis-auc.csv
-          cat results/pi3k-auc.csv
+          cat results.csv
