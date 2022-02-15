@@ -3,7 +3,7 @@ nextflow.enable.dsl=2
 // Expected params
 // .in - directory that contains gene signatures, with each signature
 //       in a separate .txt file, listing one gene name per line
-params.out          = 'results'
+params.out          = 'results.csv'
 params.baselineFile = 'rnaseq_log2rpkm.csv'
 
 process accuracy {
@@ -25,27 +25,17 @@ process accuracy {
     """
 }
 
-process aggregate {
-    publishDir "${params.out}", mode: 'move', saveAs: {f -> "${sig}-auc.csv"}
-    
-    input:  tuple val(sig), val(aucs)
-    output: path('auc.csv')
-
-    """
-    echo Drug,AUC > auc.csv
-    echo "$aucs" >> auc.csv
-    """
-}
-
 workflow {
     cell_lines = params.containsKey('cellList') ? file(params.cellList) : ''
     sigs  = Channel.fromPath("${params.in}/*.txt")
     drugs = Channel.of(params.drugs).flatten()
-
     inputs = sigs.combine(drugs)
+
+    f = file("${params.out}")
+    if( f.exists() ) error "File ${params.out} already exists"
+    f << "Signature,Drug,AUC\n"
+    
     accuracy(inputs, cell_lines)
-        .map{sig, f -> tuple(sig, "${f.getBaseName().split('_auc').head()},${f.text}")}
-        .groupTuple()
-        .map{sig, aucs -> tuple(sig, aucs.join('\n'))} |
-        aggregate
+        .map{sig, f -> "$sig,${f.getBaseName().split('_auc').head()},${f.text}"}
+        .subscribe{ f << "$it\n" }
 }
