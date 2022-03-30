@@ -73,3 +73,4 @@ Docker is not required to run the script on O2, where Singularity will be used i
 module load java
 nextflow run labsyspharm/brca-profiling --in genesets -profile O2
 ```
+
