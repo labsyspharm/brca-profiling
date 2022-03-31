@@ -62,4 +62,3 @@ def load_meta():
     dfcells = pd.read_csv("../data/cell_lines_metadata.csv")
     dfdrugs = pd.read_csv("../data/agents_metadata.csv")
     return dfcells, dfdrugs
-
