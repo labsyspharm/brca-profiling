@@ -108,7 +108,8 @@ if options.prediction_type=="predict_genes":
     dfimp.to_csv("%s/%s_imp.csv"%(options.output, options.drug), index=False)
 
 elif options.prediction_type=="estimate_accuracy":
-    print ("Estimating accuracy of Random Forest model for %s (%s cell lines)"%(options.drug, dfc.shape[0]))
+    msg = "Estimating accuracy of Random Forest model for %s (%s cell lines) from %s genes"
+    print (msg%(options.drug, dfc.shape[0], dfc.shape[1]))
     auc, dfout = auc_random_forest(dfc)
     dfout.to_csv("%s/%s_rfr.csv"%(options.output, options.drug), index=False)
     with open("%s/%s_rfr.txt"%(options.output, options.drug),"w") as outFile:

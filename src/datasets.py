@@ -7,24 +7,30 @@ def brca_data(train_test=False, full_data=False):
     # input cells over which the predsictive model is built
     input_cells = open(options.cell_list, "r").read().splitlines()
     input_cells = [ic.replace("-", "").upper() for ic in input_cells]
+    print("Parsed %s user-provided cell line names"%len(input_cells))
 
     # baseline data
     dfbase = pd.read_csv(options.baseline_data, index_col=0)
     base_cells = dfbase.columns.tolist()
+    msg = "Loaded %s containing %s features and %s cell lines"
+    print(msg%(options.baseline_data, dfbase.shape[0], dfbase.shape[1]))
 
     # list of genes (or proteins) which would serve as the features for predictive modeling
     genes = open(options.gene_list, "r").read().splitlines()
+    print("Parsed %s user-provided gene names"%len(genes))
 
     # GR-metrics data
     dfgr = pd.read_csv(options.response_data)
     dfgr = dfgr[dfgr.generic_name==options.drug]
     dfgr.index=dfgr.cell_line
     gr_cells = dfgr.index.tolist()
+    print("Loaded GR values for %s cell lines"%len(gr_cells))
 
     # cells that are present in both, baseline as well GR-data
     cells = list(set(input_cells).intersection(set(base_cells).intersection(set(gr_cells))))
     dfbase = dfbase[cells]
     dfgr = dfgr[dfgr.index.isin(cells)]
+    print("%s cell lines are in common to all sources"%len(cells))
 
     # combine the baseline and dose response data into one dataFrame
     dfc = pd.concat([dfbase[dfbase.index.isin(genes)].T,
