@@ -1,73 +1,70 @@
-agent,nominal_target,drug_class,library_plate
-A-1210477,Mcl-1,BCL2 family,LINCS I Breast cancer
-ABT-737,Bcl2/XL,BCL2 family,LINCS I Breast cancer
-AZD1775,WEE1,Cell cycle,LINCS II Breast cancer
-AZD2014,mTor,PI3K/AKT/mTOR,LINCS II Breast cancer
-AZD5363,Akt,PI3K/AKT/mTOR,LINCS II Breast cancer
-AZD6738,ATR,DNA damage,LINCS II Breast cancer
-AZD7762,CHK1/2,Cell cycle,LINCS I Breast cancer
-Abemaciclib/LY2835219,CDK4/6,CDK/Cell cycle,LINCS I Breast cancer
-Alpelisib/BYL719,PI3Ka,PI3K/AKT/mTOR,LINCS I Breast cancer
-BJP-04-042-3,Pin 1,Other,LINCS II Breast cancer
-BJP-05-106-3,Pin 1,Other,LINCS II Breast cancer
-BJP-6-5-3,Pin 1,Other,LINCS II Breast cancer
-BMS-265246,CDK1/2,CDK/Cell cycle,LINCS II Breast cancer
-BSJ-01-175,CDK12/13,CDK,LINCS II Breast cancer
-BSJ-03-123,CDK6,CDK/Cell cycle,LINCS II Breast cancer
-BSJ-03-124,CDK4/6 degron,CDK/Cell cycle,LINCS II Breast cancer
-BVD523,ERK1/2,MAPK/ERK,LINCS II Breast cancer
-Bleomycin,Radiomimetic,DNA damage,LINCS I Breast cancer
-Buparlisib/NVP-BKM120,pan PI3K,PI3K/AKT/mTOR,LINCS I Breast cancer
-CDK1/2i III,CDK1/2,CDK/Cell cycle,LINCS II Breast cancer
-CFI-400945,PLK4,Cell cycle,LINCS II Breast cancer
-Cabozantinib,VEGFR2/MET,RTK,LINCS I Breast cancer
-Cediranib/AZD2171,VEGFR/cKIT,RTK,LINCS I Breast cancer
-Ceritinib/LDK378,ALK,RTK,LINCS I Breast cancer
-Cisplatin,DNA,DNA damage,LINCS I Breast cancer
-Dasatinib,BCR/ABL,MAPK/ERK,LINCS I Breast cancer
-Dinaciclib/SCH727965,pan CDK,CDK,LINCS I Breast cancer
-Doxorubicin,DNA,DNA damage,LINCS I Breast cancer
-E17,CDK12/13,CDK,LINCS II Breast cancer
-Etoposide,Topoisomerase II,DNA damage,LINCS I Breast cancer
-Everolimus,mTOR1,PI3K/AKT/mTOR,LINCS I Breast cancer
-FMF-03-145-1,pan-Aurora,Cell cycle,LINCS II Breast cancer
-FMF-03-146-1,DCLK1/2,Other,LINCS II Breast cancer
-FMF-04-107-2,CDK14,CDK,LINCS II Breast cancer
-FMF-04-112-1,DCLK1/2,Other,LINCS II Breast cancer
-Flavopiridol,pan-CDK,CDK,LINCS II Breast cancer
-GSK2334470,PDK1,PI3K/AKT/mTOR,LINCS II Breast cancer
-INK128/MLN0128,mTORC1/2,PI3K/AKT/mTOR,LINCS I Breast cancer
-Ipatasertib/GDC0068,AKT,PI3K/AKT/mTOR,LINCS I Breast cancer
-LEE011/Ribociclib,CDK4/6,CDK/Cell cycle,LINCS II Breast cancer
-LY2606368,Chk1,Cell cycle,LINCS II Breast cancer
-LY3023414,PI3K/mTor/DNA-PK,PI3K/AKT/mTOR,LINCS II Breast cancer
-Luminespib/NVP-AUY922,HSP90,Other,LINCS I Breast cancer
-MFH-2-90,CDK12/13,CDK,LINCS II Breast cancer
-Neratinib/HKI272,EGFR/HER2,RTK,LINCS I Breast cancer
-Nocodazole,microtubules,Chemotherapy,LINCS II Breast cancer
-Olaparib/AZD2281,PARP,DNA damage,LINCS I Breast cancer
-PF-4708671,p70S6K,PI3K/AKT/mTOR,LINCS I Breast cancer
-Paclitaxel,Tubulin,Chemotherapy,LINCS I Breast cancer
-Palbociclib/PD0332991,CDK4/6,CDK/Cell cycle,LINCS I Breast cancer
-Pictilisib/GDC0941,pan PI3K,PI3K/AKT/mTOR,LINCS I Breast cancer
-Pin1-3,Pin1,Other,LINCS II Breast cancer
-R0-3306,CDK1,CDK/Cell cycle,LINCS II Breast cancer
-Rucaparib,PARP,DNA damage,LINCS II Breast cancer
-SHP099,SHP2.00,MAPK/ERK,LINCS II Breast cancer
-SY-1365,CDK7,CDK,LINCS II Breast cancer
-Saracatinib/AZD0530,SRC,MAPK/ERK,LINCS I Breast cancer
-senexin b,CDK8/19,CDK,LINCS II Breast cancer
-TGX221,PI3Kb,PI3K/AKT/mTOR,LINCS I Breast cancer
-THZ-P1-2,PIP4K,PI3K/AKT/mTOR,LINCS II Breast cancer
-THZ-P1-2R,PIP4K,PI3K/AKT/mTOR,LINCS II Breast cancer
-THZ1,CDK7/12/13,CDK,LINCS II Breast cancer
-THZ531,CDK12/13,CDK,LINCS II Breast cancer
-Taselisib/GDC0032,"PI3Ka, g, d",PI3K/AKT/mTOR,LINCS I Breast cancer
-Tivantinib/ARQ197,MET,RTK,LINCS I Breast cancer
-Topotecan,Topoisomerase I,DNA damage,LINCS I Breast cancer
-Torin2,mTOR/PIKKs,PI3K/AKT/mTOR,LINCS I Breast cancer
-Trametinib/GSK1120212,MEK,MAPK/ERK,LINCS I Breast cancer
-Volasertib/BI6727,PLK,Cell cycle,LINCS I Breast cancer
-Vorinostat,HDAC,Other,LINCS I Breast cancer
-YKL-5-124,CDK7,CDK,LINCS II Breast cancer
-ZZ1-33B,CDK9 degron,CDK,LINCS II Breast cancer
+﻿agent,generic_name,agent_id,drug_class,nominal_target
+A-1210477,A-1210477,,BCL2 family,Mcl-1
+ABT-737,ABT-737,,BCL2 family,Bcl2/XL
+AZD1775,MK-1775,AZD1775,Cell cycle,WEE1
+AZD2014,vistusertib,AZD2014,PI3K/AKT/mTOR,mTor
+AZD5363,capivasertib,AZD5363,PI3K/AKT/mTOR,Akt
+AZD6738,ceralasertib,AZD6738,DNA damage,ATR
+AZD7762,AZD7762,,Cell cycle,CHK1/2
+Abemaciclib/LY2835219,abemaciclib,LY2835219,CDK/Cell cycle,CDK4/6
+Alpelisib/BYL719,alpelisib,BYL719,PI3K/AKT/mTOR,PI3Ka
+Bleomycin,bleomycin,,Other,
+BJP-6-5-3,BJP-6-5-3,,Other,Pin 1
+BMS-265246,BMS-265246,,CDK/Cell cycle,CDK1/2
+BSJ-01-175,BSJ-01-175,,CDK,CDK12/13
+BSJ-03-123,BSJ-03-123,,CDK/Cell cycle,CDK6
+BSJ-03-124,BSJ-03-124,,CDK/Cell cycle,CDK4/6 degron
+BVD523,ulixertinib,BVD523,MAPK/ERK,ERK1/2
+Buparlisib/NVP-BKM120,buparlisib,NVP-BKM120,PI3K/AKT/mTOR,pan PI3K
+CFI-400945,CFI-400945,,Cell cycle,PLK4
+Cabozantinib,cabozantinib,BMS-907351,RTK,VEGFR2/MET
+Cediranib/AZD2171,cediranib,AZD2171,RTK,VEGFR/cKIT
+Ceritinib/LDK378,ceritinib,LDK378,RTK,ALK
+Cisplatin,cisplatin,,Other,
+Dasatinib,dasatinib,BMS-354825,MAPK/ERK,BCR/ABL
+Dinaciclib/SCH727965,dinaciclib,SCH727965,CDK,pan CDK
+DMSO,DMSO,,Other,
+Doxorubicin,doxorubicin,,DNA damage,DNA
+E17,E17,,CDK,CDK12/13
+Etoposide,etoposide,NSC-141540,Other,
+Everolimus,everolimus,RAD-666,PI3K/AKT/mTOR,mTOR1
+FMF-03-145-1,FMF-03-145-1,,Cell cycle,pan-Aurora
+FMF-03-146-1,FMF-03-146-1,,Other,DCLK1/2
+FMF-04-107-2,FMF-04-107-2,,CDK,CDK14
+FMF-04-112-1,FMF-04-112-1,,Other,DCLK1/2
+Flavopiridol,alvocidib,L86-8275,CDK,pan CDK
+GSK2334470,GSK2334470,,PI3K/AKT/mTOR,PDK1
+INK128/MLN0128,INK128,MLN0128,PI3K/AKT/mTOR,mTORC1/2
+Ipatasertib/GDC0068,ipatasertib,GDC0068,PI3K/AKT/mTOR,AKT
+LEE011/Ribociclib,ribociclib,LEE011,CDK/Cell cycle,CDK4/6
+LY2606368,prexasertib,LY2606368,Cell cycle,Chk1
+LY3023414,LY3023414,,PI3K/AKT/mTOR,PI3K/mTor/DNA-PK
+Luminespib/NVP-AUY922,luminespib,NVP-AUY922,Other,HSP90
+MFH-2-90,MFH-2-90,,Other,CDK12/13
+Neratinib/HKI272,neratinib,HKI272,RTK,EGFR/HER2
+Olaparib/AZD2281,olaparib,AZD2281,DNA damage,PARP
+PF-4708671,PF-4708671,,PI3K/AKT/mTOR,p70S6K
+Paclitaxel,paclitaxel,BMS-181339-01,Other,Tubulin
+Palbociclib/PD0332991,palbociclib,PD0332991,CDK/Cell cycle,CDK4/6
+Pictilisib/GDC0941,pictilisib,GDC0941,PI3K/AKT/mTOR,pan PI3K
+Pin1-3,Pin1-3,Pin1-3,Other,Pin1
+R0-3306,R0-3306,R0-3306,CDK/Cell cycle,CDK1
+Rucaparib,rucaparib,AG14447,DNA damage,PARP
+SHP099,SHP099,,MAPK/ERK,SHP2
+SY-1365,SY-1365,,CDK,CDK7
+Saracatinib/AZD0530,saracatinib,AZD0530,MAPK/ERK,SRC
+senexin b,senexin-B,,CDK,CDK8/19
+TGX221,TGX221,,PI3K/AKT/mTOR,PI3Kb
+THZ-P1-2,THZ-P1-2,,PI3K/AKT/mTOR,PIP4K
+THZ-P1-2R,THZ-P1-2R,,PI3K/AKT/mTOR,PIP4K
+THZ1,THZ1,,CDK,CDK7/12/13
+THZ531,THZ531,,CDK,CDK12/13
+Taselisib/GDC0032,taselisib,GDC0032,PI3K/AKT/mTOR,"PI3Ka, g, d"
+Tivantinib/ARQ197,tivantinib,ARQ197,RTK,MET
+Topotecan,topotecan,,Other,
+Torin2,torin2,,PI3K/AKT/mTOR,mTOR/PIKKs
+Trametinib/GSK1120212,trametinib,GSK1120212,MAPK/ERK,MEK
+Volasertib/BI6727,volasertib,BI6727,Cell cycle,PLK
+Vorinostat,vorinostat,MK-0683,Other,HDAC
+YKL-5-124,YKL-5-124,YKL-5-124,CDK,CDK7
+ZZ1-33B,ZZ1-33B,ZZ1-33B,CDK,CDK9 degron
