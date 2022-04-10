@@ -39,10 +39,9 @@ echo 184A1 AU565 BT20 BT474 BT549 CAL120 | tr ' ' '\n' > cl.txt
 nextflow run labsyspharm/brca-profiling --in genesets --cell-list cl.txt
 ```
 
-By default, the script evaluates gene sets against RNAseq data. To evaluate against Mass Spec (MS) and phopsho-MS, use `--baseline-file` to point the script to another data file (note that the filenames are resolved w.r.t. `data/` in this repository):
+By default, the script evaluates gene sets against RNAseq data. To evaluate against Mass Spec (MS), use `--platform ms`:
 ```
-nextflow run labsyspharm/brca-profiling --in genesets --baseline-file mass_spec.csv
-nextflow run labsyspharm/brca-profiling --in genesets --baseline-file phospho_phase1.csv
+nextflow run labsyspharm/brca-profiling --in genesets --platform ms
 ```
 
 ## Evaluating against background sets
@@ -59,10 +58,9 @@ will generate 10 sets of 20 randomly-selected genes each and write these to `mys
 nextflow run labsyspharm/brca-profiling --in mysets
 ```
 
-As with gene set evaluation, background generation samples from the rnaseq space of gene names by default. This behavior can be overwritten with `--baseline-file` as above:
+As with gene set evaluation, background generation samples from the rnaseq space of gene names by default. This behavior can be overwritten with `--platform ms` as above:
 ```
-nextflow run labsyspharm/brca-profiling/bkset.nf --baseline-file mass_spec.csv --pfx ms-bg
-nextflow run labsyspharm/brca-profiling/bkset.nf --baseline-file phospho_phase1.csv --pfx pms-bg
+nextflow run labsyspharm/brca-profiling/bkset.nf --platform ms --pfx ms-bg
 ```
 
 ## Running on O2

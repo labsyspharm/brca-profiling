@@ -6,7 +6,7 @@ params.out  = 'background'          // Write sets to this directory
 params.pfx  = 'bkset'               // Prefix to use in the output file
 
 // Data file to use for sampling feature names
-params.baselineFile = 'rnaseq_log2rpkm.csv'
+params.platform = 'rna'
 
 process randgenes {
     container "${params.contPfx}labsyspharm/brca-profiling:${params.contVers}"
@@ -15,9 +15,10 @@ process randgenes {
     input: val(index)
     output: path('bkset.txt')
     
+    script:
+    blf = '/app/data/' + (params.platform == 'ms' ? 'mass_spec.csv' : 'rnaseq_log2rpkm.csv')
     """
-    cut -d ',' -f 1 /app/data/${params.baselineFile} | \
-      tail -n +2 | shuf | head -n ${params.ng} > bkset.txt
+    cut -d ',' -f 1 $blf | tail -n +2 | shuf | head -n ${params.ng} > bkset.txt
     """
 }
 
