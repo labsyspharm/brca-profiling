@@ -33,9 +33,10 @@ workflow {
 
     f = file("${params.out}")
     if( f.exists() ) error "File ${params.out} already exists"
-    f << "Signature,Drug,AUC\n"
+    f << "Signature,Drug,Method,AUC\n"
     
     accuracy(inputs, cell_lines)
-        .map{sig, f -> "$sig,${f.getBaseName().split('_auc').head()},${f.text}"}
+        .map{sig, f -> tokens = f.getBaseName().split('_');
+          "$sig,${tokens[0]},${tokens[1]},${f.text}"}
         .subscribe{ f << "$it\n" }
 }
