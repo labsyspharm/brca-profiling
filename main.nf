@@ -3,8 +3,8 @@ nextflow.enable.dsl=2
 // Expected params
 // .in - directory that contains gene signatures, with each signature
 //       in a separate .txt file, listing one gene name per line
-params.out          = 'results.csv'
-params.baselineFile = 'rnaseq_log2rpkm.csv'
+params.out      = 'results.csv'
+params.platform = 'rna'
 
 process accuracy {
     container "${params.contPfx}labsyspharm/brca-profiling:${params.contVers}"
@@ -18,10 +18,10 @@ process accuracy {
 
     script:
     carg = params.containsKey('cellList') ? "-c $cl" : '-c /app/data/cell_list.txt'
+    blf = '/app/data/' + (params.platform == 'ms' ? 'mass_spec.csv' : 'rnaseq_log2rpkm.csv')
     """
     python /app/src/random_forest.py -t estimate_accuracy \
-      -b /app/data/${params.baselineFile} \
-      $carg -d '$drug' -g $genes -o ./
+      -b $blf $carg -d '$drug' -g $genes -o ./
     """
 }
 
